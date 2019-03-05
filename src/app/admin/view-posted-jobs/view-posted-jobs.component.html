@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-6" *ngFor='let job of jobList'>
+        <div class="card">
+            <div class="card-header">
+                <h3>Job: {{job.jobTitle}}</h3>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title" style="background-color: #ccc">{{job.jobType}}</h4>
+                <div class="card-text">
+                    <h4>Description</h4>
+                    <div class="container-float">
+                        <h5><b>Location : </b>{{job.jobDescription.jobLocation}}</h5>
+                        <h5><b>Profile : </b>{{job.jobDescription.jobProfile}}</h5>
+                        <h5><b>Minimum Experience : </b>{{job.jobDescription.minExperience}}</h5>
+                        <h5><b>Minimum qualification : </b>{{job.jobDescription.minQualification}}</h5>
+                        <h5><b>Package : </b>{{job.jobDescription.packageOffered}} (LPA)</h5>
+                        <h5><b>Last day to apply : </b>{{job.lastDayToApply | date}}</h5>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a (click)="editJob(job)" class="btn btn-warning">edit</a>
+                    <a (click)="removeJob(job._id)" class="btn btn-danger">remove</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

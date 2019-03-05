@@ -1,0 +1,56 @@
+
+<div class="container-float">
+  <ul>
+    <li *ngFor='let x of schedules'>
+      <!-- <div *ngIf='interviewer.name==x.interviewer' else noDataToShow> -->
+        <h3>{{x.interviewer}}, count:{{x.count}}</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>TIME & DATE</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <TBODY>
+            <tr *ngFor='let candid of x.candids'>
+              <td (click)='showResume(candid)' style="cursor:pointer">{{candid.name}}</td>
+              <td>{{candid.time}}</td>
+              <!-- <td><a href="getResumeFile()" target="_blank">resume</a></td>
+              <td><a href="getVideoFile()"  target="_blank">intro video</a></td> -->
+              
+              <td>
+                <div class="row">
+                  <div class="col">
+                    <label class="switch">
+                      <input type="checkbox" checked='candid.checkboxStatus' [(ngModel)]='candid.checkboxStatus'>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                  <div class="col">
+                    <button *ngIf='candid.checkboxStatus' class="btn btn-success" (click)='changeStatus()'>Approve</button>
+                    <button *ngIf='!candid.checkboxStatus' class="btn btn-danger" (click)='changeStatus()'>Disapprove</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </TBODY>
+        </table>
+      <!-- </div> -->
+    </li>
+  </ul>
+  <div *ngIf='path!=null'>
+    <h3>Resume</h3>
+    <iframe [src]="path | safe" width="800px" height="1000px"></iframe>
+  </div>
+
+  <div class="video" *ngIf='videopath!=null'>
+    <h3>Intro video</h3>
+    <video controls (click)="toggleVideo()" id="videoPlayer">
+      <source src="{{videopath}}" type="video/mp4" />
+      Browser not supported
+    </video>
+
+  </div>
+</div>
+<h3><a id="logoutLink" [routerLink]="['/login']">logout</a></h3>

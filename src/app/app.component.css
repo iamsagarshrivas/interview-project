@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Merienda');
+.navbar-brand{
+    font-family: 'Merienda', cursive;
+    color: white;
+    font-size: 30px;
+}
+
+.navbar{
+    background-color: #39ace7;
+}

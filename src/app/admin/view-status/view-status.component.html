@@ -1,0 +1,31 @@
+<div class="container-float">
+  <ul>
+    <li *ngFor='let x of schedules'>
+      <h3>{{x.interviewerName}},count:{{x.count}}</h3>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>TIME & DATE</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <TBODY>
+            <tr *ngFor='let candid of x.candids'>
+              <td>{{candid.candidateName}}</td>
+              <td>{{candid.time}}</td>
+              <td>
+                <div *ngIf='candid.checkboxStatus==null; else elseBlock' style="color:darkgoldenrod">Pending</div>
+                <ng-template #elseBlock>
+                  <div *ngIf='candid.checkboxStatus; else rejectBlock' style="color:green">Selected</div>
+                  <ng-template #rejectBlock><div style="color:red">Rejected</div></ng-template>
+                </ng-template>
+              </td>
+            </tr>
+          </TBODY>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

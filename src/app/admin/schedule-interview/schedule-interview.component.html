@@ -1,0 +1,83 @@
+<div class="container-float" *ngIf='!successInfo'>
+  <form [formGroup]='ScheduleInterviewForm'>
+    <div class="form-group">
+      <label for="Candidate">Select Candidate</label>
+      <select class="form-control" (change)="selectJob()" formControlName="candidate_id">
+        <option *ngFor="let candidate of candidates" [ngValue]="candidate._id">{{candidate.basicInfo.candidateName}}
+        </option>
+      </select>
+      <div *ngIf="submitted && f.candidate?.errors" class="invalid-feedback">
+        <div *ngIf="f.candidate?.errors.required" class="alert alert-danger">this field is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="Job">Jobs Applied</label>
+      <select class="form-control" formControlName="job_id">
+        <option *ngFor="let appliedJob of jobs" [ngValue]="appliedJob._id">{{appliedJob.jobTitle}}</option>
+      </select>
+      <div *ngIf="submitted && f.job?.errors" class="invalid-feedback">
+        <div *ngIf="f.job?.errors.required" class="alert alert-danger">this field is required</div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="Interviewer">Select Interviewer</label>
+      <select class="form-control" formControlName="interviewer_id">
+        <option *ngFor="let iw of interviewers" [ngValue]="iw._id">{{iw.name}}</option>
+      </select>
+      <div *ngIf="submitted && f.interviewer?.errors" class="invalid-feedback">
+        <div *ngIf="f.interviewer?.errors.required" class="alert alert-danger">this field is required</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label for="Date">Select Date</label>
+        <input type='date'  class="form-control" formControlName='scheduleDate' />
+        <div *ngIf="submitted && f.time?.errors" class="invalid-feedback">
+          <div *ngIf="f.time?.errors.required" class="alert alert-danger">this field is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label for="time">Select timeslot</label>
+        <select class="form-control" formControlName='scheduleTime'>
+          <option *ngFor='let time of timeslot'>{{time}}</option>
+        </select>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="interviewType">interview type</label>
+      <select class="form-control" formControlName='interviewType'>
+        <option *ngFor='let type of interviewTypes' [ngValue]='type'>{{type}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="interviewLevel">interview level</label>
+      <select class="form-control" formControlName='interviewLevel'>
+        <option *ngFor='let level of interviewLevels' [ngValue]='level'>{{level}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="interviewVenue">venue</label>
+      <input type="text" class="form-control" formControlName='interviewVenue'>
+
+    </div>
+
+    <div class="form-group">
+      <label for="dressCode">dress code</label>
+      <input type="text" class="form-control" formControlName='dressCode'>
+    </div>
+
+
+    <button type="button" class="btn btn-info" (click)="onSubmit()">Submit Information</button>
+  </form>
+</div>
+
+<div *ngIf='successInfo'>
+  <h3>Success!! interview has been scheduled. <a (click)="goBack()">Go back</a></h3>
+</div>

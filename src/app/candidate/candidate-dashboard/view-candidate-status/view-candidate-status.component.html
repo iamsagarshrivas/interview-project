@@ -1,0 +1,22 @@
+<div class="container-float">
+  <h3>{{userName}}</h3>
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Job Title</th>
+      <th scope="col">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let schedule of scheduleArray' (click)='printRow(schedule)'>
+    <td>{{schedule.jobTitle}}</td>
+    <td>{{schedule.result}}{{schedule.schedule_date | date}}</td>
+  </tr>
+      
+  </tbody>
+</table>
+<div *ngIf=''>
+  
+</div>

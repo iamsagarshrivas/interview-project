@@ -1,0 +1,26 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="jumbotron fadeIn first">
+        <h1>InterView Panel</h1>
+      </div>
+  
+      <!-- Login Form -->
+      <form [formGroup]='loginForm' (ngSubmit)='onSubmit()'>
+          <input type="email" id="login" class="fadeIn second" name="login" placeholder="login" formControlName="email">
+          <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="password">
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+
+      <div *ngIf='error' style="color: red">No user exists</div>
+  
+      <div id="formFooter">
+          <a class="underlineHover" routerLink='../candidate-upload-resume'>Candidate Register</a><br>
+          <a class="underlineHover" routerLink='../candidate-apply-job'>We are hiring</a>
+        
+      </div>
+  
+    </div>
+  </div>
