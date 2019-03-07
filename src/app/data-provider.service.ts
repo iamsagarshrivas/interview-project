@@ -19,6 +19,10 @@ export class DataProviderService {
 
   constructor(private http: HttpClient){}
 
+  getFile(file_name):Observable<any>{
+    return this.http.get<any>(`${this._url}+/api/get-file/${file_name}`)
+  }
+
   decodeToken(token):Observable<any>{
     return this.http.get<any>(this._url+'/api/authenticate',
     {
@@ -28,6 +32,11 @@ export class DataProviderService {
       })
     }
     )
+  }
+
+  verifyOtp(otpValue,_id):Observable<any>{
+    return this.http.post<any>(this._url+'/api/candidate/verify-otp',{otpValue,_id});
+
   }
 
   uploadResumeFile(file):Observable<any>{
@@ -54,6 +63,10 @@ export class DataProviderService {
     return this.http.post<any>(this._url+'/api/candidate/update-candidate',{_id:id , candidate},this.httpOptions );
   }
 
+  updateCandidateResult(_id,result):Observable<any>{
+    return this.http.post<any>(this._url+'/api/interviewers/update-candidate-result',{_id,result},this.httpOptions);
+  }
+
   updateCandidateJob(_id,job_id):Observable<any>{
     return this.http.post<any>(this._url+'/api/candidate/update-candidate-job',{_id,job_id},this.httpOptions);
   }
@@ -68,8 +81,8 @@ export class DataProviderService {
     return this.http.get<any>(this._url+"/api/interviewers");
   }
 
-  getInterviewerById(id):Observable<any>{
-    return this.http.get<any>(this._url+'/api/interviewer/'+id);
+  getInterviewerById(_id):Observable<any>{
+    return this.http.get<any>(this._url+'/api/interviewers/'+_id);
   }
 
   getAdminById(id):Observable<any>{
@@ -81,7 +94,7 @@ export class DataProviderService {
   }
 
   addInterviewer(interviewer):Observable<any>{
-    return this.http.post<any>(this._url+"/api/interviewer/add-interviewer",interviewer,this.httpOptions);
+    return this.http.post<any>(this._url+"/api/interviewers/add-interviewer",interviewer,this.httpOptions);
   }
 
   getSchedule(): Observable<any>{
@@ -90,6 +103,10 @@ export class DataProviderService {
 
   getScheduleByCandidateId(candidate_id):Observable<any>{
     return this.http.get<any>(this._url+'/api/schedule/candidate/'+candidate_id);
+  }
+
+  getScheduleByInterviewerId(_id):Observable<any>{
+    return this.http.get<any>(this._url+'/api/schedule/interviewer/'+_id);
   }
 
   getScheduleByJobId(candidate_id,job_id):Observable<any>{

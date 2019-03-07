@@ -29,9 +29,8 @@ export class AddInterviewerComponent implements OnInit {
     this.AddInterViewerForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.pattern("^[a-z][a-z '-.,]{0,31}$|^$")]],// Validators.pattern("^[\\p{L} .'-]+$")]],
       email: [null, [Validators.required, Validators.email]],
-      password:[null,[Validators.required]],//Validators.pattern("^(?=.*\d).{4,8}$")]],
-      role:[null,Validators.required],
-      mobileNumber:[null],
+      role:[null,[Validators.required]],
+      mobileNumber:[null,[Validators.required]],
       _id:[null]
     });
   }
@@ -51,11 +50,12 @@ export class AddInterviewerComponent implements OnInit {
     .subscribe((data)=>{
       console.log(data);
       if(data.saved){
+        alert('data saved successfully')
         this.submitted=false;
+        this.AddInterViewerForm.reset();
       }
     });
 
-    this.AddInterViewerForm.reset();
   }
 
 }

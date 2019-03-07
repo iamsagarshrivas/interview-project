@@ -8,13 +8,16 @@ import { DataProviderService } from 'src/app/data-provider.service';
 })
 export class ViewStatusComponent implements OnInit {
 
-  // schedules=SCHEDULES;
-  schedules:any;
+  allStatus:any;
+
   constructor(private dps:DataProviderService) { }
 
   ngOnInit() {
     this.dps.getSchedule()
-            .subscribe(data => this.schedules=data)
+    .subscribe((data)=>{
+      console.log(data);      
+      this.allStatus = data;
+    })
   }
 
 }

@@ -16,6 +16,9 @@ export class LoginPageComponent implements OnInit {
   error: Boolean;
   schedule: any;
   token: string;
+  otpValue:string;
+  otpError:boolean=false;
+  _id:string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,16 +49,15 @@ export class LoginPageComponent implements OnInit {
               })
             }
             else if (val.role === 'admin') {
-              this.dps.getAdminById(val._id).subscribe((adminData) => {
-              console.log(adminData);
-            
+              this.dps.getInterviewerById(val._id).subscribe((adminData) => {
+                          
               this.router.navigate(['default-admin'],{state : adminData});
               })
 
             }
           }
           else {
-            this.error = true;
+            this.error = !val.login;
           }
         })
 
@@ -66,6 +68,21 @@ export class LoginPageComponent implements OnInit {
       password: [null, [Validators.required]],
     });
 
+  }
+
+  verifyOTP(){
+    this.dps.verifyOtp(this.otpValue,this._id)
+    .subscribe((data)=>{
+      console.log(data);
+      if(data.verified){
+        this.router.navigate(['/login'])
+      }
+      else{
+        this.otpError = true;
+      }
+      
+    })
+    
   }
 
   onSubmit() {
@@ -104,7 +121,7 @@ export class LoginPageComponent implements OnInit {
               }
               else if (val.role === 'admin') {
                 localStorage.setItem('admin_id',val._id);
-                this.dps.getAdminById(val._id)
+                this.dps.getInterviewerById(val._id)
                 .subscribe((adminData)=>{
                   console.log(adminData);
                   this.router.navigate(['default-admin'], { state: data.admin });                  
@@ -122,6 +139,5 @@ export class LoginPageComponent implements OnInit {
 
 
       })
-    this.error = true;
   }
 }

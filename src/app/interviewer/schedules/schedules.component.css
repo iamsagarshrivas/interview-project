@@ -1,0 +1,24 @@
+ul li:hover{
+    background-color: #ccc;
+    color: white;
+}
+
+ul li{
+    cursor: pointer;
+}
+
+.box{
+    padding: 10px;
+    margin: 10px;
+    border: #ccc 1px solid;
+    height: 200px;
+    border-radius: 10px;
+}
+.box h4{
+    font: outline;
+}
+.outer-box{
+    padding: 10px;
+}
+dt { float: left; clear: left; width: 6em; font-weight: bold; }
+dd { float: left; }

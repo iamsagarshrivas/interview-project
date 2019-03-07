@@ -1,31 +1,26 @@
 <div class="container-float">
-  <ul>
-    <li *ngFor='let x of schedules'>
-      <h3>{{x.interviewerName}},count:{{x.count}}</h3>
-      <div>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>NAME</th>
-              <th>TIME & DATE</th>
-              <th>STATUS</th>
-            </tr>
-          </thead>
-          <TBODY>
-            <tr *ngFor='let candid of x.candids'>
-              <td>{{candid.candidateName}}</td>
-              <td>{{candid.time}}</td>
-              <td>
-                <div *ngIf='candid.checkboxStatus==null; else elseBlock' style="color:darkgoldenrod">Pending</div>
-                <ng-template #elseBlock>
-                  <div *ngIf='candid.checkboxStatus; else rejectBlock' style="color:green">Selected</div>
-                  <ng-template #rejectBlock><div style="color:red">Rejected</div></ng-template>
-                </ng-template>
-              </td>
-            </tr>
-          </TBODY>
-        </table>
-      </div>
-    </li>
-  </ul>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+          <th scope="col">Candidate</th>
+          <th scope="col">Candidate Email</th>
+        
+        <th scope="col">Interviewer</th>
+        <th scope="col">Job Title</th>
+        <th scope="col">Interview date</th>
+        
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let status of allStatus'>
+        <td>{{status.candidate_id.basicInfo.candidateName}}</td>
+        <td>{{status.candidate_id.basicInfo.candidateEmail}}</td>
+        <td>{{status.interviewer_id.name}}</td>
+        <td>{{status.job_id.jobTitle}}</td>
+        <td>{{status.schedule_date}}</td>
+        <td>{{status.result}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -55,6 +55,7 @@ export class ViewJobsComponent implements OnInit {
       this.dps.addSchedule(this.candidate_id,job_id)
       .subscribe((data)=>{
         console.log(data);
+        alert('applied successfully')
         
       })
     }

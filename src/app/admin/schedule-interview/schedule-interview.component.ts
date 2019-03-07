@@ -97,13 +97,19 @@ export class ScheduleInterviewComponent implements OnInit {
   }
 
   onSubmit() {
+    
     this.submitted = true;
-    this.ScheduleInterviewForm.value.result = 'scheduled'
+    
     console.log(this.ScheduleInterviewForm.value);
 
     if (this.ScheduleInterviewForm.invalid) {
       return;
     }
+    var date = new Date(this.ScheduleInterviewForm.value.scheduleDate);
+    this.ScheduleInterviewForm.value.result = 'scheduled'
+    this.ScheduleInterviewForm.value.scheduleDate = `${date.getDate()}-${date.getMonth() +1}-${date.getFullYear()}`;
+    
+    var date = new Date(this.ScheduleInterviewForm.value.scheduleDate);
 
     this.dsp.updateSchedule(this.ScheduleInterviewForm.value)
     .subscribe((data)=>{

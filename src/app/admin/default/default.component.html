@@ -20,7 +20,7 @@
               <li><a [routerLink]="['/default-admin/post-job']" >Post job</a></li>
               <li><a [routerLink]="['/default-admin/view-posted-jobs']" >View Jobs</a></li>
               
-              <li><a [routerLink]="['/login']" >logout</a></li>              
+              <li><a (click)='logout()' >logout</a></li>              
             </ul>
           </div>
           <!--/.nav-collapse -->

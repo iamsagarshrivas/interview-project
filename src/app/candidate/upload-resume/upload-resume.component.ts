@@ -20,8 +20,12 @@ export class UploadResumeComponent implements OnInit {
   perCity: String;
   currState: String;
   perState: String;
+  otpValue:Number;
   sameAsCurAdd: Boolean = false;
   noWorkEx : Boolean = false;
+  otpForm:Boolean=false;
+  otpError:Boolean=false;
+  _id:String;
 
   courses = [
     {
@@ -56,10 +60,15 @@ export class UploadResumeComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private dps: DataProviderService,private router:Router) { }
 
-  f(){
-    console.log('ctrls',this.candidateForm.controls);
-    
-    return this.candidateForm.controls;
+
+  f(){    
+    return {
+      basicInfo : this.candidateForm.controls['basicInfo'],
+      highschool:this.candidateForm.controls['educationalQualification.highschool'],
+      intermediate:this.candidateForm.controls['educationalQualification.intermediate'],
+      graduation: this.candidateForm.controls['educationalQualification.graduation'],
+      currentAddress: this.candidateForm.controls['residentialDetails.currentAddress']
+    } 
   }
 
   changeStream(course) {
@@ -99,6 +108,21 @@ export class UploadResumeComponent implements OnInit {
 
     }
 
+  }
+
+  verifyOTP(){
+    this.dps.verifyOtp(this.otpValue,this._id)
+    .subscribe((data)=>{
+      console.log(data);
+      if(data.verified){
+        this.router.navigate(['/login'])
+      }
+      else{
+        this.otpError = true;
+      }
+      
+    })
+    
   }
 
   onKey2(event) {
@@ -215,6 +239,10 @@ export class UploadResumeComponent implements OnInit {
         skillSetName: [null],
         skillLevel: [null]
       }),
+      uploadDocuments:this.formBuilder.group({
+        resumeFile:[null],
+        videoResumeFile:[null]
+      }),
       referralDetails: this.formBuilder.group({
         name: [null],
         phoneNumber: [null],
@@ -224,7 +252,9 @@ export class UploadResumeComponent implements OnInit {
     })
   }
 
-  onSubmit(val){
+  onSubmit(){
+    console.log(this.candidateForm.value);
+    
     
     this.submitted = true;
 
@@ -245,6 +275,8 @@ export class UploadResumeComponent implements OnInit {
     this.dps.addCandidate(this.candidateForm.value)
     .subscribe((data)=>{
       console.log(data);
+      this.otpForm = data.saved;
+      this._id=data.msg1._id;
     })
   }
 
@@ -266,8 +298,6 @@ export class UploadResumeComponent implements OnInit {
 
   submitDocuments(){
 
-    let candidateProfile = this.formGroup.value;
-
     const formData = new FormData();
     formData.append(
       'defaultResumeLink',this.formGroup.get('defaultResumeLink').value
@@ -279,10 +309,10 @@ export class UploadResumeComponent implements OnInit {
     this.dps.uploadResumeFile(formData)
     .subscribe((data)=>{
       console.log(data);
-
-      if(data.saved){
-        this.router.navigate(['/login']);
-      }
+      alert("data upload success");
+      this.candidateForm.value.uploadDocuments.resumeFile=data.resumePath
+      this.candidateForm.value.uploadDocuments.videoResumeFile=data.videoPath
+      
       
     })
   }
