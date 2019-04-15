@@ -28,11 +28,11 @@ export function getAuthServiceConfigs() {
       [
         {
           id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider("853309818346424")
+          provider: new FacebookLoginProvider("YOUR_FACEBOOK_API_KEY_HERE")
         },
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider("1027933510907-8knbbnsvrmo49o86sbamjs4ckv80fjun.apps.googleusercontent.com")
+          provider: new GoogleLoginProvider("YOUR_GOOGLE_API_KEY_HERE")
         }
       ]
   );
