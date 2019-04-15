@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { DataProviderService } from 'src/app/data-provider.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ScheduleInterviewComponent implements OnInit {
   candidates: any;
   interviewers: any;
   scheduleObj: any;
-  today = new Date();
+  today : string;
   jobs = new Array();
   timeslot = [
     '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 -18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'
@@ -31,11 +31,10 @@ export class ScheduleInterviewComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private dsp: DataProviderService) {
-
-
+    
   }
 
-  get f() { return this.ScheduleInterviewForm.controls; }
+  f() { return this.ScheduleInterviewForm.controls; }
 
   selectJob() {
     console.log('change', this.ScheduleInterviewForm.value.candidate_id);
@@ -44,16 +43,19 @@ export class ScheduleInterviewComponent implements OnInit {
       .subscribe((data) => {
 
         console.log(data);
-        for (var i = 0; i < data.response.length; i++) {
-          for (var j = 0; j < data.schedule.length; j++) {
-            console.log(data.response[i]._id === data.schedule[j].job_id);
-            if (data.response[i]._id === data.schedule[j].job_id) {
-
-              console.log(data.response[i], data.schedule[j]);
-              this.jobs.push(data.response[i]);
+        for(var i=0;i<data.response.length;i++){          
+          if(data.response[i].result === 'applied'  || data.response[i].result === 'approved'){
+            this.jobs.push(data.response[i].job_id);
+            if(data.response[i].result === 'approved'){
+              for(var j=0;j<this.interviewers.length;j++){
+                if(this.interviewers[j]._id === data.response[i].interviewer_id){
+                  this.interviewers.splice(j,1);
+                }
+              }
             }
           }
         }
+        console.log(this.jobs);      
 
       })
 
@@ -62,6 +64,7 @@ export class ScheduleInterviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.today = new Date().toISOString().substr(0,10);
     this.submitted = false;
 
     this.dsp.getCandidates()
@@ -77,13 +80,11 @@ export class ScheduleInterviewComponent implements OnInit {
         console.log(data);
       })
 
-
-
     this.ScheduleInterviewForm = this.formBuilder.group({
       job_id: [null, [Validators.required]],
       candidate_id: [null, [Validators.required]],
       interviewer_id: [null, [Validators.required]],
-      scheduleDate: [null, [Validators.required]],
+      scheduleDate: [null, [Validators.required,this.dateValidate]],
       scheduleTime: [null, [Validators.required]],
       interviewType: [null, [Validators.required]],
       interviewLevel: [null, [Validators.required]],
@@ -94,22 +95,36 @@ export class ScheduleInterviewComponent implements OnInit {
       comments: [null],
       acknowledgement: [null]
     });
+
+  }
+
+  dateValidate(control : AbstractControl){
+    
+    if(control.value!=undefined || control.value !=null){
+      if(new Date(control.value) <new Date()|| new Date(control.value).getFullYear()>2099){
+        return {
+          dateErr : 'Ahh!! we are not time travellers. Please enter valid date.'
+        }
+      }
+      
+    }
+
   }
 
   onSubmit() {
+    console.log(this.ScheduleInterviewForm);
     
     this.submitted = true;
-    
-    console.log(this.ScheduleInterviewForm.value);
 
     if (this.ScheduleInterviewForm.invalid) {
       return;
     }
+
     var date = new Date(this.ScheduleInterviewForm.value.scheduleDate);
     this.ScheduleInterviewForm.value.result = 'scheduled'
+    var date = new Date(this.ScheduleInterviewForm.value.scheduleDate);
     this.ScheduleInterviewForm.value.scheduleDate = `${date.getDate()}-${date.getMonth() +1}-${date.getFullYear()}`;
     
-    var date = new Date(this.ScheduleInterviewForm.value.scheduleDate);
 
     this.dsp.updateSchedule(this.ScheduleInterviewForm.value)
     .subscribe((data)=>{
@@ -124,9 +139,6 @@ export class ScheduleInterviewComponent implements OnInit {
     })
 
   }
-
-
-
   goBack() {
     this.submitted = false;
   }

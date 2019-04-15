@@ -1,5 +1,40 @@
-tbody tr:hover{
-    background-color: #ccc;
-    cursor: pointer;
-    color: white;
-}
+
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+
+.info {
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+  }
+
+  .container-float{
+      padding: 10px;
+  }
+  .container-float h2{
+      font-family: 'Dosis', sans-serif;
+      text-transform: uppercase;
+  }
+  .container-float h4{
+    font-family: 'Dosis', sans-serif;
+    
+
+  }
+
+  .shadow {
+    -webkit-border-radius: 0% 0% 100% 100% / 0% 0% 8px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0,.30) 0 2px 3px;
+    }
+    .container {
+      margin: 0 auto;
+      margin-top: 50px;;
+    
+      height: 80vh;
+      background: #F2F2F2;
+      border: 1px solid #ccc;
+      box-shadow: 1px 1px 2px #fff inset,
+                  -1px -1px 2px #fff inset;
+      border-radius: 3px/6px;         
+        
+        
+    }
+    
+    

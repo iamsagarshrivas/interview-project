@@ -1,0 +1,153 @@
+<div>
+  <fieldset>
+    <legend>
+      <h2>Test Generator</h2>
+    </legend>
+    <div class="container-float">
+      <form class="col-sm-6" [formGroup]="TestGeneratorForm">
+
+        <div class="form-group">
+          <label>No. of easy questions</label>
+          <input type="number" min="0" [max]="easyCount" formControlName="easy">
+          <div *ngIf='TestGeneratorForm.controls.easy.touched && TestGeneratorForm.controls.easy.errors'>
+            <div *ngIf="TestGeneratorForm.controls.easy.errors.max" class="alert alert-danger">Maximum {{easyCount}} easy
+              questions</div>
+            <div *ngIf="TestGeneratorForm.controls.easy.errors.min" class="alert alert-danger">Cannot be negative</div>
+            <div *ngIf="TestGeneratorForm.controls.easy.errors.required" class="alert alert-danger">Please enter a number</div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>No. of medium questions</label>
+          <input type="number" min="0" [max]="mediumCount" formControlName="medium">
+          <div *ngIf='TestGeneratorForm.controls.medium.touched && TestGeneratorForm.controls.medium.errors'>
+            <div *ngIf="TestGeneratorForm.controls.medium.errors.max" class="alert alert-danger">Maximum {{mediumCount}} medium
+              questions</div>
+            <div *ngIf="TestGeneratorForm.controls.medium.errors.min" class="alert alert-danger">Cannot be negative</div>
+            <div *ngIf="TestGeneratorForm.controls.medium.errors.required" class="alert alert-danger">Please enter a number</div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>No. of hard questions</label>
+          <input type="number" min="0" [max]="hardCount" formControlName="hard">
+          
+          <div *ngIf='TestGeneratorForm.controls.hard.touched && TestGeneratorForm.controls.hard.errors'>
+            <div *ngIf="TestGeneratorForm.controls.hard.errors.max" class="alert alert-danger">Maximum {{hardCount}} hard
+              questions</div>
+            <div *ngIf="TestGeneratorForm.controls.hard.errors.min" class="alert alert-danger">Cannot be negative</div>
+            <div *ngIf="TestGeneratorForm.controls.hard.errors.required" class="alert alert-danger">Please enter a number</div>
+
+          </div>
+        </div>
+        <button class="btn btn-success" [disabled]='!TestGeneratorForm.valid || (totalMarks == 0)'
+          (click)="onSubmit()">Submit</button>
+      </form>
+      <div class="totalMarks col-sm-4">
+        <h3>Total marks : <span *ngIf="TestGeneratorForm.valid;else errorSpan">{{totalMarks}}</span><ng-template  #errorSpan>--</ng-template></h3>
+
+      </div>
+
+    </div>
+  </fieldset>
+</div>
+
+<div>
+  <fieldset>
+    <legend>
+      <h2>Tests</h2>
+    </legend>
+    <div class="container-float test-container">
+      <!-- <div class="test" *ngFor="let test of tests;let i = index">
+        <h4><span class="index">{{i+1}}</span>{{test.testName}}<span class="date">{{test.creationDate | date}}</span></h4>
+      </div> -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              S.No.
+            </th>
+            <th>
+              Test Name
+            </th>
+            <th>
+              Creation Date
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let test of tests;let i = index">
+            <th class="col-sm-1">
+              {{i+1}}
+            </th>
+            <td class="col-sm-4">{{test.testName}}</td>
+            <td class="col-sm-4">{{test.creationDate | date}}</td>
+            <td><button class="btn btn-info" (click)='getTestQuestions(test)' data-toggle="modal"
+                data-target="#exampleModal">View</button></td>
+            <!-- <td><button class="btn btn-danger">Delete</button></td> -->
+
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </fieldset>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">{{modalDetails?.testName}}</h4>
+        <h6 class="text-info">{{modalDetails?.creationDate | date}}</h6>
+        <h6 class="max-marks">Maximum marks : {{modalDetails?.maximumMarks}}</h6>
+        
+
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let ques of modalData;let i=index">
+          <div class="question">
+            <h5><strong>Ques.{{i+1}} )</strong>{{ques.ques}} <div
+                [ngClass]="{'level-class':true,'easy':ques.level=='easy','medium':ques.level=='medium','hard':ques.level=='hard'}">
+                {{ques.level}}</div>
+            </h5>
+            <div class="answer" *ngFor='let option of ques.options;let j=index'>
+              <h6 class="col-sm-6"><strong>{{j+1}}).</strong>{{option}}</h6>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

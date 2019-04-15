@@ -8,47 +8,55 @@ import { DataProviderService } from 'src/app/data-provider.service';
 })
 export class ViewCandidateStatusComponent implements OnInit {
 
-  userName :string;
   scheduleArray=new Array();
+  filteredScheduleArray=new Array();
+  
+  modalData :any;
+  private _searchString : String;
+
+  get searchString() : String{
+    return this._searchString;
+  }
+  set searchString(value :  String){
+    this._searchString = value;
+    this.filteredScheduleArray = this.filterSchedule(value);
+  }
+
+  filterSchedule(searchTerm : String){
+    return this.scheduleArray.filter(
+      (schedule)=> schedule.job_id.jobTitle.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      
+    );
+  }
 
   constructor(private dps: DataProviderService) { }
 
   ngOnInit() {
-    this.dps.getCandidateById(localStorage.getItem('candidate_id'))
-    .subscribe((data)=>{
-      console.log(data.candidate.jobId);
-      this.userName = data.candidate.basicInfo.candidateName;
-      
-    })
+    if(localStorage.getItem('token')){
 
-    this.dps.getScheduleByCandidateId(localStorage.getItem('candidate_id'))
-    .subscribe((data)=>{
-      console.log(data);
-      for(var i=0;i<data.response.length;i++){
-        for(var j=0;j<data.schedule.length;j++){
-          if(data.response[i]._id === data.schedule[j].job_id){
-            data.response[i].result = data.schedule[j].result;
-            this.scheduleArray.push(data.response[i]);
-          }
-        }
-      }
-      console.log('arr',this.scheduleArray);
+    this.dps.decodeToken(localStorage.getItem('token'))
+    .subscribe((decodedData)=>{
+      this.dps.getScheduleByCandidateId(decodedData._id)
+      .subscribe((data)=>{
+        console.log('job data',data);
+        this.filteredScheduleArray= this.scheduleArray=data.response;
+        this.modalData = this.scheduleArray[0];
+      })
       
-    })
+    })  
+  }
+  else{
+    
+  } 
+
     
   }
 
 
-  printRow($event){
+  printRow(event){
     
-    this.dps.getScheduleByJobId(localStorage.getItem('candidate_id'),$event._id)
-    .subscribe((data)=>{
-      if(!data.err){
-        console.log(data.result);
-        
-      }
-      
-    })
+    console.log(event);
+    this.modalData = event
     
   }
 }

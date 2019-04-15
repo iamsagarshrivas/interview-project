@@ -1,0 +1,139 @@
+[type="date"] {
+    background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
+  }
+  
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  
+  input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  legend h2 {
+    font-family: 'Dosis', sans-serif;
+    color: #2e86c1;
+  }
+  
+  div label {
+    width: 140px;
+    font-family: 'Dosis', sans-serif;
+    text-transform: capitalize
+  }
+
+  div.totalMarks{
+    display: block;
+    float: left;
+  }
+  
+  fieldset {
+    font-family: 'Dosis', sans-serif;
+    border-radius: 20px;
+    padding: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 9px 13px 50px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 9px 13px 50px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: 9px 13px 50px -8px rgba(0, 0, 0, 0.75);
+  }
+.row{
+  padding: 10px;
+}
+
+div.test-container{
+  height: 180px;
+  overflow: scroll;
+  
+}
+
+/* custom scroll */
+
+.alert {
+  padding: 4px;
+  /* margin-bottom: 20px; */
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: inline;
+  margin-left: 6px;
+}
+
+@media only screen and (max-width: 500px) {
+  /* For mobile phones: */
+  .alert {
+    display: block;
+    width:62%;
+  }
+}
+
+
+table thead tr th,tbody tr th{
+  color: #2e86c1;
+}
+
+#exampleModalLabel{
+  text-transform: uppercase;
+  color: #2e86c1;
+}
+h6.text-info{
+  float: left;
+}
+h6.max-marks{
+  float: right;
+  color: darkred;
+}
+
+
+div.question{
+  width: 100%;
+  display:flow-root;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+div.question h5{
+  font-size: 1.3rem;
+  font-weight: bold
+}
+div.question h5 strong{
+  padding: 0 5px;
+}
+
+div.answer h6 strong{
+  padding: 0 5px;
+}
+
+div.modal-body{
+  height: 400px;
+  overflow: scroll;
+}
+
+
+.level-class{
+  position: relative;
+  /* display: inline; */
+  padding: 5px;
+  float: right;
+  text-transform: uppercase;
+
+}
+.easy{
+  color: green;
+  border-radius: 9px;
+  /* border:1px solid green */
+}
+.medium{
+  color: orange;
+  border-radius: 9px;
+  /* border:1px solid orange; */
+}
+.hard{
+  color: red;
+  border-radius: 9px;
+  /* border:1px solid red; */
+}

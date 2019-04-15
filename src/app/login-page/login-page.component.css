@@ -143,8 +143,7 @@ html {
   
   input[type=email]:placeholder,input[type=password]:placeholder {
     color: #cccccc;
-  }
-  
+  } 
   
   
   /* ANIMATIONS */
@@ -249,6 +248,60 @@ html {
     width: 100%;
   }
   
+  .google i,.facebook i{
+    margin-right: 10px;
+    float: left;
+    border-right: 1px solid #2b2b2b;
+    padding: 0px 10px 0 0;
+  }
+  .google p,.facebook p{
+    float: left;
+    margin-bottom: 5px;
+  }
+  .google{
+    margin-right: 10px !important;
+  }
+  .google i{
+    color: #DB4437
+  }
+  .facebook i{
+    color: #3C5A99;
+  }
+  .google:hover{
+  
+    background-color: #DB4437;
+    color: white;
+    box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+    transition: 0.3s;
+  }
+  .google:hover i{
+    color: white;
+    transition: 0.3s;
+    border-color: white;
+  }
+  .facebook:hover{
+    background-color: #3c5a99;
+    color: white;
+    box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
+    transition: 0.3s;
+  }
+  .facebook:hover i{
+    color: white;
+    transition: 0.3s;
+    border-color: white;
+  }
+  .btn{
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: 17px;
+    line-height: 20px;
+    text-decoration: none;
+  }
   
   
   /* OTHERS */

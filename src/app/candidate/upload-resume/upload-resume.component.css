@@ -1,4 +1,5 @@
-input[type=number]::-webkit-inner-spin-button, 
+
+@import url('https://fonts.googleapis.com/css?family=Dosis');input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -51,4 +52,30 @@ body{
   }
   .text-input input{
       width: 100%;
+  }
+
+  fieldset legend h3,div label,.doc-class h3{
+    font-family: 'Dosis', sans-serif;
+
+  }
+  fieldset legend h3,.doc-class h3{
+    color: #2E86C1;
+    text-transform: capitalize;
+    padding: 3px;
+    display: inline;
+    
+  }
+
+  fieldset legend{
+    display: block;
+  }
+
+  fieldset{
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 4px 2px 29px 0px rgba(161,158,161,0.33);
+-moz-box-shadow: 4px 2px 29px 0px rgba(161,158,161,0.33);
+box-shadow: 4px 2px 29px 0px rgba(161,158,161,0.33);
   }

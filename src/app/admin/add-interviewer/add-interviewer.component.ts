@@ -11,8 +11,6 @@ import { DataProviderService } from 'src/app/data-provider.service';
 export class AddInterviewerComponent implements OnInit {
 
   roles=roles;
-  interviewerArray:any;
-
   AddInterViewerForm: FormGroup;
 
   submitted = false;
@@ -23,14 +21,11 @@ export class AddInterviewerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dps.getInterviewer()
-            .subscribe(data => this.interviewerArray = data)
-
     this.AddInterViewerForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.pattern("^[a-z][a-z '-.,]{0,31}$|^$")]],// Validators.pattern("^[\\p{L} .'-]+$")]],
-      email: [null, [Validators.required, Validators.email]],
+      name: [null, [Validators.required, Validators.pattern(/^[a-zA-Z ]+$/)]],// Validators.pattern("^[\\p{L} .'-]+$")]],
+      email: [null, [Validators.required, Validators.pattern(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/)]],
       role:[null,[Validators.required]],
-      mobileNumber:[null,[Validators.required]],
+      mobileNumber:[null,[Validators.required,Validators.pattern(/^[6-9]\d{9}$/)]],
       _id:[null]
     });
   }

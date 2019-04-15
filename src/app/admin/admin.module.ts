@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostJobComponent } from './post-job/post-job.component';
 import { ViewPostedJobsComponent } from './view-posted-jobs/view-posted-jobs.component';
+import { AddQuesComponent } from './add-ques/add-ques.component';
+import { TestGenerateComponent } from './test-generate/test-generate.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ViewPostedJobsComponent } from './view-posted-jobs/view-posted-jobs.com
     AddInterviewerComponent,
     DefaultComponent,
     PostJobComponent,
-    ViewPostedJobsComponent
+    ViewPostedJobsComponent,
+    AddQuesComponent,
+    TestGenerateComponent
   ],
   imports: [
     CommonModule,

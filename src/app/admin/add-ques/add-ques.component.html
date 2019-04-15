@@ -1,0 +1,50 @@
+<div *ngIf="posted">
+  <fieldset>
+    <h3>Questions added successfully. <a style="cursor: pointer;" (click)="goBack()">Go back</a></h3>
+  </fieldset>
+</div>
+<div *ngIf="!posted">
+  <fieldset>
+    <legend>
+      <h2>Add Questions</h2>
+    </legend>
+    <div class="container-float">
+      <form [formGroup]="AddQuesForm">
+        <div class="form-group question" formArrayName="quesDescription">
+          <div class="ques" [formGroupName]='i' *ngFor='let res of AddQuesForm.get("quesDescription").controls;let i = index'>
+            <button class="remove-question" (click)="removeQuestion(i)"><i class="far fa-trash-alt"></i></button>
+            <label for="quesDescription">Ques. {{i+1}}</label>
+            <input type="text" class="form-control" formControlName="ques" placeholder="Question">
+            <div class="form-group" formArrayName="options">
+              <div *ngFor="let op of this.AddQuesForm.get('quesDescription')['controls'][i].get('options').controls;let j = index">
+                <div class="option">
+                  <span>{{j+1}}</span><input type="text" class="form-control" [formControlName]='j' placeholder="option"><button class="btn remove-question" (click)="removeOption(i,j)"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+              <button class="btn btn-info" (click)="addOption(i)"><i class="fas fa-plus-circle"></i> Add options</button>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="answer">Answer</label>
+            <select class="form-control" formControlName="answer" [value]='ops'>
+              <option *ngFor="let op of this.AddQuesForm.get('quesDescription')['controls'][i].get('options').controls;let ops = index" >{{ops+1}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="level">level</label>
+            <select formControlName="level" class="form-control" [value]="level">
+              <option *ngFor="let level of levels">{{level}}</option>
+            </select>
+          </div>
+        </div>
+
+          </div>
+        </div>
+        <button class="btn btn-info" (click)="addQuestion()">Add more</button>
+        <button class="btn btn-success" (click)="onSubmit()">submit</button>
+      </form>
+
+    </div>
+  </fieldset>
+</div>

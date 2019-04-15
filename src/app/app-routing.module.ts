@@ -13,18 +13,24 @@ import { CandidateDashboardComponent } from './candidate/candidate-dashboard/can
 import { ViewJobsComponent } from './candidate/candidate-dashboard/view-jobs/view-jobs.component';
 import { ViewCandidateStatusComponent } from './candidate/candidate-dashboard/view-candidate-status/view-candidate-status.component';
 import { DashboardComponent } from './interviewer/dashboard/dashboard.component';
-import { AuthGuard } from './auth.guard';
+import { LoginGuard } from './login.guard';
 import { SchedulesComponent } from './interviewer/schedules/schedules.component';
+import { 
+  RoleGuardService as RoleGuard 
+} from './role-guard.service';
+import { AddQuesComponent } from './admin/add-ques/add-ques.component';
+import { TestGenerateComponent } from './admin/test-generate/test-generate.component';
+
 
 const routes: Routes = [
   {
     path: '', redirectTo: 'login', pathMatch: 'full'
   },
   {
-    path: 'login', component: LoginPageComponent
+    path: 'login', component: LoginPageComponent, canActivate:[LoginGuard]
   },
   {
-    path: 'candidate-dashboard', component: CandidateDashboardComponent,canActivate:[AuthGuard],
+    path: 'candidate-dashboard', component: CandidateDashboardComponent,canActivate:[RoleGuard],data:{expectedRole:'candidate'},
     children: [
       { path: '', redirectTo: 'view-jobs', pathMatch: 'full' },
       { path: 'view-jobs', component: ViewJobsComponent },
@@ -35,7 +41,7 @@ const routes: Routes = [
     path: 'candidate-upload-resume', component: UploadResumeComponent
   },
   {
-    path: 'interviewer-panel', component: DashboardComponent, canActivate: [AuthGuard],
+    path: 'interviewer-panel', component: DashboardComponent, canActivate: [RoleGuard],data:{expectedRole:'interviewer'},
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component : SchedulesComponent },
@@ -43,7 +49,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'default-admin', component: DefaultComponent, canActivate: [AuthGuard],
+    path: 'default-admin', component: DefaultComponent, canActivate: [RoleGuard],data:{expectedRole:'admin'},
 
     children: [
       {
@@ -65,9 +71,16 @@ const routes: Routes = [
         path: "view-posted-jobs", component: ViewPostedJobsComponent
       },
       {
-        path: '**', redirectTo: 'login', pathMatch: 'full'
+        path: "add-question",component:AddQuesComponent
+      },
+      {
+        path: "test-generator",component:TestGenerateComponent
       }
     ]
+    
+  },
+  {
+    path: '**', redirectTo: 'login', pathMatch: 'full', canActivate:[]
   }
 ];
 

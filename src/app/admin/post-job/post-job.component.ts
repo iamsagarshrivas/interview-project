@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { DataProviderService } from 'src/app/data-provider.service';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,8 @@ export class PostJobComponent implements OnInit {
   posted = false;
   submitted = false;
   formData: any;
+  responsibilities : FormArray;
+  today : String;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -25,6 +27,8 @@ export class PostJobComponent implements OnInit {
   get f() { return this.PostJobForm.controls; }
 
   ngOnInit() {
+    this.today = new Date().toISOString().substr(0,10);
+    
 
     console.log(this.formData)
 
@@ -40,7 +44,7 @@ export class PostJobComponent implements OnInit {
           minExperience: [null],
           packageOffered: [null]
         }),
-        responsibilities: [null],
+        responsibilities: this.formBuilder.array([this.createResponsibility()]),
         lastDayToApply: [null],
         creationDate: [null],
         creationDateMillis: [null],
@@ -109,6 +113,29 @@ export class PostJobComponent implements OnInit {
 
         })
     }
+  }
+
+  createResponsibility(){
+    return this.formBuilder.group({
+      res : [null]
+      
+    })
+  }
+
+  addResponsibility(){
+    
+        this.responsibilities = this.PostJobForm.get('responsibilities') as FormArray;
+        console.log(this.responsibilities);
+        
+        this.responsibilities.push(this.createResponsibility())
+
+  }
+
+  removeResponsibility(index){
+    this.responsibilities = this.PostJobForm.get('responsibilities') as FormArray;
+        console.log(this.responsibilities);
+        
+        this.responsibilities.removeAt(index);
   }
 
   goBack() {

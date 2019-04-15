@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProviderService } from 'src/app/data-provider.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-view-jobs',
@@ -8,57 +9,34 @@ import { DataProviderService } from 'src/app/data-provider.service';
 })
 export class ViewJobsComponent implements OnInit {
 
-  jobList : any;
-  token : string;
-  candidate_id:string;
-  user:string;
-  userName:string;
-  scheduleArray:any;
+  jobList: any;
+  
+  candidate_id: string;
+  user: string;
+  
+  scheduleArray: any;
 
-  constructor(private dps:DataProviderService) { }
-
+  constructor(private dps: DataProviderService,private toaster :ToastrManager) { }
   ngOnInit() {
 
-    this.token = localStorage.getItem('token');
-    this.candidate_id = localStorage.getItem('candidate_id');
-    if(this.candidate_id){
-       this.dps.getCandidateById(this.candidate_id)
-       .subscribe((data)=>{
-         this.user = data;
-         this.userName=data.candidate.basicInfo.candidateName;
-         
-       })
-    }
-
-    this.dps.getPostedJobs()
+    this.dps.decodeToken(localStorage.getItem('token'))
+    .subscribe((decodedToken)=>{
+      this.dps.getNotAppliedPostedJobs(decodedToken._id)
       .subscribe((data) => {
-        this.jobList = data;
-        this.jobList.forEach(function(element) { element.alreadyApplied = "false"; });
-
+        this.jobList = data.result;
         console.log(this.jobList);
       });
+    })    
   }
 
-  applyJob(job_id){
-   
-    if(this.token==null){
-      // 1. save jobId in local storage
-      localStorage.setItem('job_id',job_id);
+  applyJob(job) {
 
-      // 2. login user
-
-      // 3. if not login then register user
-
-      // 4. get jobId from localStorage and apply for job
-    }
-    else{
-      this.dps.addSchedule(this.candidate_id,job_id)
-      .subscribe((data)=>{
+    this.dps.addSchedule(this.candidate_id, job._id)
+      .subscribe((data) => {
         console.log(data);
-        alert('applied successfully')
-        
+        this.toaster.successToastr('You applied for this job successfylly. Visit Status panel to view your status.','Applied')
+        this.ngOnInit();
       })
-    }
   }
 
 }

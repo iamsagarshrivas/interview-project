@@ -1,77 +1,116 @@
 <div *ngIf="posted">
-  <h2>Job posted successfully. <a style="cursor: pointer;" (click)="goBack()">Go back</a></h2>
+    <fieldset>
+    <h3>Job posted successfully. <a style="cursor: pointer;" (click)="goBack()">Go back</a></h3>
+</fieldset>
 </div>
 <div *ngIf="!posted">
-<h2>Post Job Details</h2>
-<div class="container-float">
-  <form [formGroup]="PostJobForm" method="POST" action="/api/add-job">
-      <div class="form-group">
-          <label for="jobTitle">Job Title</label>
-          <input type="text" class="form-control" formControlName="jobTitle" placeholder="job title" [ngClass]="{ 'is-invalid': submitted && f.jobTitle.errors }">
-          <div *ngIf="submitted && f.jobTitle.errors" class="invalid-feedback">
-              <div *ngIf="f.jobTitle.errors.required" class="alert alert-danger">this field is required</div>
-          </div>
-      </div>
+    <fieldset>
+        <legend>
+            <h2>Post Job Details</h2>
+        </legend>
+        <div class="container-float">
+            <form [formGroup]="PostJobForm">
+                <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input type="text" class="form-control" formControlName="jobTitle" placeholder="job title"
+                        [ngClass]="{ 'is-invalid': submitted && f.jobTitle.errors }">
+                    <div *ngIf="submitted && f.jobTitle.errors" class="invalid-feedback">
+                        <div *ngIf="f.jobTitle.errors.required" class="alert alert-danger">this field is required</div>
+                    </div>
+                </div>
 
-      <div class="form-group">
-          <label for="jobType">Job Type</label>
-          <input type="text" class="form-control" formControlName="jobType" placeholder="job type" [ngClass]="{ 'is-invalid': submitted && f.jobType.errors }">
-          <div *ngIf="submitted && f.jobType.errors" class="invalid-feedback">
-              <div *ngIf="f.jobType.errors.required" class="alert alert-danger">this field is required</div>
-          </div>
-      </div>
+                <div class="form-group">
+                    <label for="jobType">Job Type</label>
+                    <input type="text" class="form-control" formControlName="jobType" placeholder="job type"
+                        [ngClass]="{ 'is-invalid': submitted && f.jobType.errors }">
+                    <div *ngIf="submitted && f.jobType.errors" class="invalid-feedback">
+                        <div *ngIf="f.jobType.errors.required" class="alert alert-danger">this field is required</div>
+                    </div>
+                </div>
 
-      <div class="container-float" style="background-color: #ccc;padding: 2%" formGroupName="jobDescription">
-        <h4>Description</h4>
+                <div class="container-float" style="border:1px solid #ccc;border-radius: 10px;margin-bottom: 10px;background-color: #ddd;;padding: 2% " formGroupName="jobDescription">
+                    <h4>Description</h4>
 
-          <div class="form-group">
-              <label for="jobLocation">Location</label>
-              <input type="text" class="form-control" formControlName="jobLocation" placeholder="job location" [ngClass]="{ 'is-invalid': submitted && f.jobLocation.errors }">
-              <div *ngIf="submitted && f.jobLocation.errors" class="invalid-feedback">
-                  <div *ngIf="f.jobLocation.errors.required" class="alert alert-danger">this field is required</div>
-              </div>
-          </div>
+                    <div class="form-group">
+                        <label for="jobLocation">Location</label>
+                        <input type="text" class="form-control" formControlName="jobLocation" placeholder="job location"
+                            [ngClass]="{ 'is-invalid': submitted && f.jobLocation.errors }">
+                        <div *ngIf="submitted && f.jobLocation.errors" class="invalid-feedback">
+                            <div *ngIf="f.jobLocation.errors.required" class="alert alert-danger">this field is required
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="form-group">
-              <label for="jobProfile">Profile</label>
-              <input type="text" class="form-control" formControlName="jobProfile" placeholder="job profile" [ngClass]="{ 'is-invalid': submitted && f.jobProfile.errors }">
-              <div *ngIf="submitted && f.jobProfile.errors" class="invalid-feedback">
-                  <div *ngIf="f.jobProfile.errors.required" class="alert alert-danger">this field is required</div>
-              </div>
-          </div>
+                    <div class="form-group">
+                        <label for="jobProfile">Profile</label>
+                        <input type="text" class="form-control" formControlName="jobProfile" placeholder="job profile"
+                            [ngClass]="{ 'is-invalid': submitted && f.jobProfile.errors }">
+                        <div *ngIf="submitted && f.jobProfile.errors" class="invalid-feedback">
+                            <div *ngIf="f.jobProfile.errors.required" class="alert alert-danger">this field is required
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="form-group">
-              <label for="minQualification">Minimum qualification</label>
-              <input type="text" class="form-control" formControlName="minQualification" placeholder="minimum qualification" [ngClass]="{ 'is-invalid': submitted && f.minQualification.errors }">
-              <div *ngIf="submitted && f.minQualification.errors" class="invalid-feedback">
-                  <div *ngIf="f.minQualification.required" class="alert alert-danger">this field is required</div>
-              </div>
-          </div>
+                    <div class="form-group">
+                        <label for="minQualification">Minimum qualification</label>
+                        <input type="text" class="form-control" formControlName="minQualification"
+                            placeholder="minimum qualification"
+                            [ngClass]="{ 'is-invalid': submitted && f.minQualification.errors }">
+                        <div *ngIf="submitted && f.minQualification.errors" class="invalid-feedback">
+                            <div *ngIf="f.minQualification.required" class="alert alert-danger">this field is required
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="form-group">
-              <label for="minExperience">Minimum experience</label>
-              <input type="number" min="0" class="form-control" formControlName="minExperience" placeholder="minimum experience (in years)" [ngClass]="{ 'is-invalid': submitted && f.minExperience.errors }">
-              <div *ngIf="submitted && f.minExperience.errors" class="invalid-feedback">
-                  <div *ngIf="f.minExperience.required" class="alert alert-danger">this field is required</div>
-              </div>
-          </div>
+                    <div class="form-group">
+                        <label for="minExperience">Minimum experience</label>
+                        <input type="number" min="0" max="30" step="0.1" class="form-control" formControlName="minExperience"
+                            placeholder="minimum experience (in years)"
+                            [ngClass]="{ 'is-invalid': submitted && f.minExperience.errors }">
+                        <div *ngIf="submitted && f.minExperience.errors" class="invalid-feedback">
+                            <div *ngIf="f.minExperience.required" class="alert alert-danger">this field is required
+                            </div>
+                        </div>
+                    </div>
 
-          <div class="form-group">
-              <label for="packageOffered">Package to offer</label>
-              <input type="number" min="0" class="form-control" formControlName="packageOffered" placeholder="package (LPA)" [ngClass]="{ 'is-invalid': submitted && f.packageOffered.errors }">
-          </div>
-      </div>
+                    <div class="form-group">
+                        <label for="packageOffered">Package to offer</label>
+                        <input type="number" min="0" class="form-control" formControlName="packageOffered"
+                            placeholder="package (LPA)"
+                            [ngClass]="{ 'is-invalid': submitted && f.packageOffered.errors }">
+                    </div>
+                </div>
 
-      <div class="form-group">
-          <label for="responsibilities">Responsibilities</label>
-          <input type="text" class="form-control" formControlName="responsibilities" placeholder="responsibilities" [ngClass]="{ 'is-invalid': submitted && f.packageOffered.errors }">
-      </div>
+                <div class="form-group" formArrayName='responsibilities'>
+                    <label for="responsibilities">Responsibilities</label>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Responsibility</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr [formGroupName]='i'
+                                    *ngFor='let res of PostJobForm.get("responsibilities").controls;let i = index'>
+                                    <th>{{1+i}}</th>
+                                    <td><input class="form-control" type="text" formControlName="res" /></td>
+                                    <td><button class="btn btn-danger" (click)="removeResponsibility(i)">X</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <button class="btn btn-info" (click)="addResponsibility()">add more</button>
+                </div>
 
-      <div class="form-group">
-          <label for="lastDayToApply">Apply by</label>
-          <input id="lastDay" type="date" min="Date.now()" class="form-control" formControlName="lastDayToApply" [ngClass]="{ 'is-invalid': submitted && f.last-day-to-apply.errors }">
-      </div>
-      <button type="button" class="btn btn-info" (click)="onSubmit()">Submit Information</button>
-  </form>
-</div>
-</div>
+                <div class="form-group">
+                    <label for="lastDayToApply">Apply by</label>
+                    <input id="lastDay" type="date"  [min]="today" class="form-control"
+                        formControlName="lastDayToApply"
+                        [ngClass]="{ 'is-invalid': submitted && f.last-day-to-apply.errors }">
+                </div>
+                <button type="button" class="btn btn-info" (click)="onSubmit()">Submit Information</button>
+            </form>
+        </div>
+    </fieldset>
+    </div>

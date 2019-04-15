@@ -35,3 +35,40 @@
     -moz-box-shadow: 9px 13px 50px -8px rgba(0, 0, 0, 0.75);
     box-shadow: 9px 13px 50px -8px rgba(0, 0, 0, 0.75);
   }
+
+  .question{
+      padding: 10px;
+  }
+  .question .ques{
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 0 0 10px 0;
+  }
+  .question .ques .remove-question{
+      display: block;
+      float: right;
+      border: none;
+      color: red;
+      background-color: transparent;
+  }
+  .question .ques label{
+      color: #2e86c1;
+  }
+  .option{
+      display: flex;
+      margin: 5px;
+  }
+  .option input{
+      border-radius: 0 5px 5px 0;
+      height:40px;
+      float: left;
+      width: 300px;
+  }
+  .option span{
+      border-radius: 5px 0px 0px 5px;
+      padding: 10px;
+      width: 30px;
+      background-color: #ccc;
+  }

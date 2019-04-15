@@ -6,15 +6,17 @@ import { RouterModule } from '@angular/router';
 import { CandidateDashboardComponent } from './candidate-dashboard/candidate-dashboard.component';
 import { ViewJobsComponent } from './candidate-dashboard/view-jobs/view-jobs.component';
 import { ViewCandidateStatusComponent } from './candidate-dashboard/view-candidate-status/view-candidate-status.component';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 
 @NgModule({
-  declarations: [UploadResumeComponent, CandidateDashboardComponent, ViewJobsComponent,  ViewCandidateStatusComponent],
+  declarations: [UploadResumeComponent ,CandidateDashboardComponent, ViewJobsComponent,  ViewCandidateStatusComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule
+    
   ],
   exports: [UploadResumeComponent]
 })
